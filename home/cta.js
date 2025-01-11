@@ -26,7 +26,7 @@ export default class {
             
             <div class="CTA__body">
               <p class="CTA__description">Sign up now to unlock access to thousands of eBooks and organize your favorites.</p>
-              <button class="CTA__button" role="button" aria-label="Sign up for free access">
+              <button  data-auth-signup class="CTA__button" role="button" aria-label="Sign up for free access">
                 Sign Up for Free
                 <span class="CTA__button-arrow" aria-hidden="true">→</span>
               </button>

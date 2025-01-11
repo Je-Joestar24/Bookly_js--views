@@ -32,10 +32,10 @@ export default class{
                   <h3 class="Featured__card-title">${card.title}</h3>
                   <p class="Featured__card-author">by ${card.author}</p>
                   <div class="Featured__card-buttons">
-                    <button class="Featured__card-btn Featured__card-btn--read" aria-label="Read more about ${card.title}">
+                    <button class="Featured__card-btn Featured__card-btn--read" aria-label="Read more about ${card.title}"  data-auth-login>
                       Read More
                     </button>
-                    <button class="Featured__card-btn Featured__card-btn--favorite" aria-label="Add ${card.title} to favorites">
+                    <button class="Featured__card-btn Featured__card-btn--favorite" aria-label="Add ${card.title} to favorites" data-auth-login>
                       Add to Favorites
                     </button>
                   </div>
@@ -44,9 +44,9 @@ export default class{
               `).join('')}
             </div>
             <div class="Featured__cta">
-              <a href="#browse" class="Featured__cta-btn" role="button" aria-label="Browse all available books">
+              <button class="Featured__cta-btn" role="button" aria-label="Browse all available books"  data-auth-login>
                 Browse All Books
-              </a>
+              </button>
             </div>            
           </section>
         </div>

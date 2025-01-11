@@ -15,7 +15,7 @@ export default class {
             <h1 class="Hero__title">Discover, Read, and Organize Your Favorite eBooks</h1>
             <h2 class="Hero__tagline">Your gateway to a world of knowledge and imagination</h2>
             <p class="Hero__description">Find your favorite books, save them for later, and enjoy seamless reading all in one place.</p>
-            <button class="Hero__cta" role="button" aria-label="Sign up for Bookly">Get Started</button>
+            <button class="Hero__cta" role="button" aria-label="Sign up for Bookly" data-auth-signup>Get Started</button>
           </section>
         </div>
         `;
