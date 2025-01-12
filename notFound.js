@@ -1,12 +1,25 @@
 import AbstractView from './AbstractView.js';
 
+/**
+ * NotFoundView Class
+ * Handles rendering of the 404 error page
+ * Extends the AbstractView class for common view functionality
+ */
 export default class extends AbstractView {
-    constructor (){
+    /**
+     * Constructor for the NotFoundView class
+     * Sets the title of the page to 'Bookly | Not Found'
+     */
+    constructor() {
         super();
         this.setTitle('Bookly | Not Found');
     }
 
-    async getHtml(){
+    /**
+     * Asynchronously retrieves the HTML content of the 404 error page
+     * @returns {Promise<string>} A promise that resolves to the HTML content of the 404 error page
+     */
+    async getHtml() {
         return `
             <div class="not-found" role="main" aria-label="404 Page Not Found">
                 <div class="not-found__content">

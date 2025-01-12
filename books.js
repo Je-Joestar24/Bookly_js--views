@@ -2,7 +2,16 @@ import { state } from '../util/state.js';
 import AbstractView from './AbstractView.js';
 import DataGenerator from './books/dataGenerator.js';
 
+/**
+ * Represents the Books view, responsible for displaying and managing book data.
+ * Extends the AbstractView class to inherit common view functionality.
+ */
 export default class extends AbstractView {
+    /**
+     * Initializes the Books view.
+     * Sets the title of the view, checks if the user is logged in, and initializes the DataGenerator.
+     * Also sets default values for searchTerm and sortBy.
+     */
     constructor() {
         super();
         this.setTitle('Bookly | Books');
@@ -15,12 +24,20 @@ export default class extends AbstractView {
         this.sortBy = 'title'; // Default sort by title
     }
 
+    /**
+     * Fetches book data and renders the view.
+     * @returns {Promise} A promise that resolves to the rendered HTML of the view.
+     */
     async getHtml() {
         this.data = await this.dataGen.fetchBooksData();
         state.books.books = await this.data;
         return this.render();
     }
 
+    /**
+     * Renders the HTML template for the Books view.
+     * @returns {String} The rendered HTML template as a string.
+     */
     async render() {
         return `
             <div class="books-container" role="main">
@@ -54,6 +71,10 @@ export default class extends AbstractView {
         `;
     }
 
+    /**
+     * Fetches and renders the books based on the current searchTerm and sortBy.
+     * @returns {String} The rendered HTML of the books as a string.
+     */
     async getBooks() {
         const filteredBooks = this.dataGen.filterAndSortBooks(
             this.data,
@@ -95,6 +116,10 @@ export default class extends AbstractView {
             `).join('')}
         `;
     }
+    /**
+     * Binds event listeners to the search input and sort select elements.
+     * Updates the searchTerm and sortBy state based on user input and re-renders the books.
+     */
     async bindAll() {
         const searchInput = document.querySelector('#search-input');
         const sortSelect = document.querySelector('#sort-select');
