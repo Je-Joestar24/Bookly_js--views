@@ -7,6 +7,7 @@ import AbstractView from './AbstractView.js';
 import Intro from './about/intro.js';
 import MissionVision from './about/missionvision.js';
 import Steps from './about/steps.js';
+import { state } from '../util/state.js';
 
 export default class extends AbstractView {
 
@@ -20,6 +21,10 @@ export default class extends AbstractView {
         this.intro = new Intro();
         this.misvis = new MissionVision();
         this.steps = new Steps();
+        if(state.user.isLoggedIn){
+            window.location.href = window.location.origin + "#/404";
+            location.reload();
+        }
     }
 
     /**

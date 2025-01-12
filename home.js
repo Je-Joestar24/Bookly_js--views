@@ -9,6 +9,7 @@ import Hero from './home/hero.js';
 import Feautre from './home/feautre.js';
 import Benefits from './home/benefits.js';
 import Cta from './home/cta.js';
+import { state } from '../util/state.js';
 
 export default class extends AbstractView {
 
@@ -25,6 +26,10 @@ export default class extends AbstractView {
     this.feature = new Feautre();
     this.benefits = new Benefits();
     this.cta = new Cta();
+    if(state.user.isLoggedIn){
+        window.location.href = window.location.origin + "#/404";
+        location.reload();
+    }
   }
 
   /**
