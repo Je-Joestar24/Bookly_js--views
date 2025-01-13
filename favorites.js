@@ -1,7 +1,15 @@
-import { state } from '../util/state.js';
+import { state, mutations } from '../util/state.js';
 import AbstractView from './AbstractView.js';
 
+/**
+ * Represents the Favorites view, responsible for displaying and managing favorite books.
+ * Extends the AbstractView class to inherit common view functionality.
+ */
 export default class extends AbstractView {
+    /**
+     * Initializes the Favorites view.
+     * Sets the title of the view, checks if the user is logged in, and prepares the view for rendering.
+     */
     constructor (){
         super();
         this.setTitle('Bookly | Favorites');
@@ -11,34 +19,13 @@ export default class extends AbstractView {
         }
     }
 
+    /**
+     * Fetches and renders the HTML template for the Favorites view.
+     * @returns {Promise} A promise that resolves to the rendered HTML of the view.
+     */
     async getHtml(){
         // Example favorites data
-        const favorites = [
-            { 
-                id: 1, 
-                title: "The Silent Echo", 
-                author: "Sarah Mitchell", 
-                type: "Mystery",
-                dateAdded: "2024-03-15",
-                cover: "https://picsum.photos/200/300"
-            },
-            { 
-                id: 4, 
-                title: "Digital Dreams", 
-                author: "Alex Turner", 
-                type: "Science Fiction",
-                dateAdded: "2024-03-14",
-                cover: "https://picsum.photos/200/300"
-            },
-            { 
-                id: 7, 
-                title: "Hidden Patterns", 
-                author: "Lisa Wong", 
-                type: "Mystery",
-                dateAdded: "2024-03-13",
-                cover: "https://picsum.photos/200/300"
-            }
-        ];
+        const favorites = state.user.favorites;
 
         return `
             <div class="favorites-container" role="main">
@@ -59,7 +46,6 @@ export default class extends AbstractView {
                                     <p class="favorite-item__author">by ${book.author}</p>
                                     <div class="favorite-item__meta">
                                         <span class="favorite-item__type">${book.type}</span>
-                                        <span class="favorite-item__date">Added on ${book.dateAdded}</span>
                                     </div>
                                 </div>
                                 <div class="favorite-item__actions">
@@ -69,7 +55,7 @@ export default class extends AbstractView {
                                         </svg>
                                         Read
                                     </button>
-                                    <button class="action-btn remove-btn" aria-label="Remove ${book.title} from favorites">
+                                    <button class="action-btn remove-btn" aria-label="Remove ${book.title} from favorites" data-book-id="${book.id}">
                                         <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                             <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                                         </svg>
@@ -82,5 +68,24 @@ export default class extends AbstractView {
                 </div>
             </div>
         `;
+    }
+
+    /**
+     * Binds event listeners to the remove buttons for each favorite book.
+     * Handles the removal of a book from the user's favorites when the remove button is clicked.
+     */
+    async bindAll() {
+        const removeButtons = document.querySelectorAll('.remove-btn');
+        removeButtons.forEach(button => {
+            button.addEventListener('click', async (e) => {
+                const bookId = parseInt(e.target.dataset.bookId);
+                const book = state.user.favorites.find(fav => fav.id === bookId);
+                if (book) {
+                    await mutations.removeFavorite(book);
+                    // Update the UI after removing the book from favorites
+                    e.target.closest('.favorite-item').remove();
+                }
+            });
+        });
     }
 }
